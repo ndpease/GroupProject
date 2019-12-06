@@ -169,4 +169,25 @@ public class MadisonHotelUI extends Application {
         launch(args);
     }
     
-}
+    public void sendDBCommand(String sqlQuery) {
+        String URL - "jdbc:oracle:thin:@localhost:1521:XE";
+        String userID = "javauser";
+        String userPASS = "javapass";
+        OracleDataSource ds;
+        
+        // System.out.println(sqlQuery); --> Clear box tester
+        
+        try {
+            ds = new OracleDataSource();
+            ds.setURL(URL);
+            dbConn = ds.getConnection(userID, userPASS);
+            commStmt = dbConn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            dbResults = commStmt.executeQuery(sqlQuery);
+        }
+        catch (SQLException e) {
+            System.out.println(e.toString());
+        }   
+    }
+    
+    
+} // end main
