@@ -115,17 +115,48 @@ public class MadisonHotelUI extends Application {
         public GridPane guestPrimaryPane = new GridPane();
         public GridPane guestHomePane = new GridPane();
         public GridPane guestBookingPane = new GridPane();
-        public GridPane guestRoomPane = new GridPane();
+        public GridPane guestRoomServicePane = new GridPane();
+        public GridPane guestHistoryPane = new GridPane();
         public GridPane guestAccountPane = new GridPane();
         // TabPane 
         public TabPane tabPaneGuest = new TabPane();
         public Tab tabGuest = new Tab("Home");
         public Tab tabGuestBookings = new Tab("Bookings");
         public Tab tabGuestRoomServ = new Tab("Room Service");
+        public Tab tabGuestHistory = new Tab("History");
         public Tab tabGuestAccount = new Tab("Account");
         public Tab tabGuestLogout = new Tab("Log Out");
 
-        // HOME Tab
+        // BOOKING Tab
+        public ListView lvGuestBook = new ListView();
+        public Button btnBookRoom = new Button("Book Room");
+        public Label lblAvailableRooms = new Label("Available Rooms");
+        
+        // ROOMSERVICE Tab
+        
+        public Label lblFood = new Label("Food");
+        public Label lblDrink = new Label("Drink");
+        public Label lblLaundry = new Label("Laundry");
+        public Label lblMisc = new Label("Miscellaneous");
+        public Label lblRSOrders = new Label("Room Service Purchases");
+        public Label lblTotalCharges = new Label("Total Charges");
+        public ComboBox cbRSFood = new ComboBox();
+        public ComboBox cbRSDrink = new ComboBox();
+        public ComboBox cbRSLaundry = new ComboBox();
+        public ComboBox cbRSMisc = new ComboBox();
+        public Button btnRSOrder = new Button("Order");
+        public ListView lvRSHistory = new ListView();
+        
+        
+        // ACCOUNT Tab
+        public Label lblChangePass = new Label("Change Password"); 
+        public Label lblOldPass = new Label("Old Password");
+        public Label lblNewPass = new Label("New Password");
+        public Label lblConfNewPass = new Label("Confirm New Password");
+        public Button btnChangePass = new Button("Change Password");
+        public TextField tfOldPass = new TextField();
+        public TextField tfNewPass = new TextField();
+        public TextField tfConfNewPass = new TextField();
         
         
     @Override
@@ -206,14 +237,63 @@ public class MadisonHotelUI extends Application {
         
         
         /// Guest Portal
-        guestPrimaryPane.setAlignment(Pos.CENTER);
-     
+        guestPrimaryPane.setAlignment(Pos.TOP_LEFT);
+        tabPaneGuest.getTabs().add(tabGuestBookings);
+        tabPaneGuest.getTabs().add(tabGuestRoomServ);
+        tabPaneGuest.getTabs().add(tabGuestHistory);
+        tabPaneGuest.getTabs().add(tabGuestAccount);
+        tabPaneGuest.getTabs().add(tabGuestLogout);
+        
+        guestPrimaryPane.add(tabPaneGuest,0,0);
+        
+        tabGuestBookings.setContent(guestBookingPane);
+        tabGuestRoomServ.setContent(guestRoomServicePane);
+        tabGuestHistory.setContent(guestHistoryPane);
+        tabGuestAccount.setContent(guestAccountPane);
+        
+        //// Guest Booking Pane
+        guestBookingPane.add(lblRoom,0,0);
+        guestBookingPane.add(lblBed,0,1);
+        guestBookingPane.add(lblKitchen,0,2);
+        guestBookingPane.add(lblCoffee,0,3);
+        guestBookingPane.add(lblAccessibility,0,4);
+        guestBookingPane.add(lblPrice,0,5);
+        guestBookingPane.add(lblCheckIn,0,6);
+        guestBookingPane.add(lblCheckOut,0,7);
+        guestBookingPane.add(btnBookRoom,0,8);
+        guestBookingPane.add(lblAvailableRooms,3,0);
+        guestBookingPane.add(lvGuestBook,3,1,1,7);
+
+        guestAccountPane.add(lblChangePass,0,0);
+        guestAccountPane.add(lblOldPass,0,1);
+        guestAccountPane.add(tfOldPass,1,1);
+        guestAccountPane.add(lblNewPass,0,2);
+        guestAccountPane.add(tfNewPass,1,2);
+        guestAccountPane.add(lblConfNewPass,0,3);
+        guestAccountPane.add(tfConfNewPass,1,3);
+        guestAccountPane.add(btnChangePass,0,4); 
+        
+        //Guest Room Service Pane
+        guestRoomServicePane.add(lblFood,0,0);
+        guestRoomServicePane.add(lblDrink,0,1);
+        guestRoomServicePane.add(lblLaundry,0,2);
+        guestRoomServicePane.add(lblMisc,0,3);
+        guestRoomServicePane.add(cbRSFood,1,0);
+        guestRoomServicePane.add(cbRSDrink,1,1);
+        guestRoomServicePane.add(cbRSLaundry,1,2);
+        guestRoomServicePane.add(cbRSMisc,1,3);
+        guestRoomServicePane.add(btnRSOrder,0,4);
+        guestRoomServicePane.add(lblRSOrders,3,0);
+        guestRoomServicePane.add(lvRSHistory,3,1,1,4);
+        guestRoomServicePane.add(lblTotalCharges,3,5);
+        
         // Scene Creation 
         Scene empScene = new Scene(empPrimaryPane, 600, 700);
         Scene logonScene = new Scene(logonPane, 300, 200); 
         Scene guestScene = new Scene(guestPrimaryPane, 600, 700);
 
         tabPaneEmp.setMinWidth(empScene.getWidth());
+        tabPaneGuest.setMinWidth(guestScene.getWidth());
         
         
         // Logout Tabs
