@@ -76,6 +76,37 @@ public class MadisonHotelUI extends Application {
         public TextField tfRoomNo = new TextField();
         
         // ROOM Tab
+        public Button btnCreateRoom = new Button("Create Room");
+        public Button btnSaveChanges = new Button("Save Changes");
+        public TextField tfERRoomNo = new TextField();
+        public TextField tfERRoomCost = new TextField();
+        public ComboBox cbRoomBedOpt = new ComboBox();
+        public ComboBox cbRoomKitchOpt = new ComboBox();
+        public ComboBox cbRoomCoffeeOpt = new ComboBox();
+        public ComboBox cbRoomAccessOpt = new ComboBox();
+        public ComboBox cbRoomActiveOpt = new ComboBox();
+        public Label lblBed = new Label("Bed");
+        public Label lblBooked = new Label("Booked");
+        public Label lblAvailable = new Label("Available");
+        public Label lblKitchen = new Label("Kitchen");
+        public Label lblCoffee = new Label("Coffee");
+        public Label lblAccessibility = new Label("Accessibility");
+        public Label lblPrice = new Label("Price");
+        public Label lblStatus = new Label("Status");
+        public Label lblERlistlabel = new Label("Select Room to View or Edit");
+        public ListView lvERList = new ListView();
+        
+        // ACCOUNT Tab
+        public Button btnChangeYourPass = new Button("Change Your Password");
+        public Button btnNewGuest = new Button("New Guest");
+        public Button btnNewEmp = new Button("New Employee");
+        public Button btnLookUpAcct = new Button("Lookup Account");
+        public Label lblUsername = new Label("Username");
+        public Label lblAcctType = new Label("Account Type");
+        public Label lblEditAccount = new Label("Edit Account");
+        public ComboBox cbAcctType = new ComboBox();
+        public TextField tfUsername = new TextField(); 
+        
         
         
 /// Elements for Guest Menu ////
@@ -99,11 +130,12 @@ public class MadisonHotelUI extends Application {
         
     @Override
     public void start(Stage primaryStage) {
-        
+        // Log On Screen
         logonPane.setAlignment(Pos.CENTER);
         logonPane.add(btnEmpLogon, 0,0);
         logonPane.add(btnGuestLogon, 0,1);
         
+        // Employee Pane
         empPrimaryPane.setAlignment(Pos.TOP_LEFT);
         tabPaneEmp.getTabs().add(tabEmpHome);
         tabPaneEmp.getTabs().add(tabEmpBooking);
@@ -117,13 +149,13 @@ public class MadisonHotelUI extends Application {
         tabEmpBooking.setContent(empBookingPane);
         tabEmpRoom.setContent(empRoomPane);
         tabEmpAccount.setContent(empAccountPane);
-        
+        // Employee Home Pane
         empHomePane.add(btnCreateGuest,1,1);
         empHomePane.add(btnChkoutGuest,1,2);
         empHomePane.add(btnRunBkgRpt,1,3);
-        empHomePane.add(lvEmpHomeActBook,2,1);
+        empHomePane.add(lvEmpHomeActBook,2,1, 1, 5);
         empHomePane.add(lblCurActBook,2,0);
-        
+        // Employee Booking Pane
         empBookingPane.add(lblGuestUsrName, 0, 0);
         empBookingPane.add(tfGuestUsrName, 1, 0);
         empBookingPane.add(lblName, 0, 1);
@@ -137,7 +169,39 @@ public class MadisonHotelUI extends Application {
         empBookingPane.add(btnNewBooking, 0, 6);
         empBookingPane.add(btnDeleteBooking, 1, 6);
         empBookingPane.add(btnBtBookRpt, 0, 7);
-        empBookingPane.add(lvEmpBookingFull, 3, 0);
+        empBookingPane.add(lvEmpBookingFull, 3, 0, 1, 7);
+        // Employee Room Pane
+        empRoomPane.add(lblRoom, 0,0);
+        empRoomPane.add(tfERRoomNo,1,0);
+        empRoomPane.add(lblBed,0,2);
+        empRoomPane.add(cbRoomBedOpt,1,2);
+        empRoomPane.add(lblKitchen,0,3);
+        empRoomPane.add(cbRoomKitchOpt, 1,3);
+        empRoomPane.add(lblCoffee,0,4);
+        empRoomPane.add(cbRoomCoffeeOpt,1,4);
+        empRoomPane.add(lblAccessibility,0,5);
+        empRoomPane.add(cbRoomAccessOpt,1,5);
+        empRoomPane.add(lblPrice,0,6);
+        empRoomPane.add(tfERRoomCost,1,6);
+        empRoomPane.add(lblStatus,0,7);
+        empRoomPane.add(cbRoomActiveOpt,1,7);
+        empRoomPane.add(btnCreateRoom,0,8);
+        empRoomPane.add(btnSaveChanges,1,8);
+        empRoomPane.add(lblAvailable,3,0);
+        empRoomPane.add(lblERlistlabel,4,0);
+        empRoomPane.add(lvERList,4,1,1, 8);
+        //Employee Account Tab
+        empAccountPane.add(btnChangeYourPass,0,0);
+        empAccountPane.add(btnNewGuest,0,1);
+        empAccountPane.add(btnNewEmp,0,2);
+        empAccountPane.add(lblEditAccount,1,0);
+        empAccountPane.add(lblUsername,1,1);
+        empAccountPane.add(lblAcctType,1,2);
+        empAccountPane.add(btnLookUpAcct,1,3);
+        empAccountPane.add(tfUsername,2,1);
+        empAccountPane.add(cbAcctType,2,2);
+        
+        
         
         
         
@@ -150,6 +214,13 @@ public class MadisonHotelUI extends Application {
         Scene guestScene = new Scene(guestPrimaryPane, 600, 700);
 
         tabPaneEmp.setMinWidth(empScene.getWidth());
+        
+        
+        // Logout Tabs
+        tabEmpLogout.setOnSelectionChanged (e -> 
+        primaryStage.setScene(logonScene));
+        tabGuestLogout.setOnSelectionChanged (e -> 
+        primaryStage.setScene(logonScene));
         
         
         
