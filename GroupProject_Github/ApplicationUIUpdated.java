@@ -66,11 +66,6 @@ public class ApplicationUI extends Application {
     public Button btnSaveChanges = new Button("Save Changes");
     public TextField tfERRoomNo = new TextField();
     public TextField tfERRoomCost = new TextField();
-    public ComboBox cbRoomBedOpt = new ComboBox();
-    public ComboBox cbRoomKitchOpt = new ComboBox();
-    public ComboBox cbRoomCoffeeOpt = new ComboBox();
-    public ComboBox cbRoomAccessOpt = new ComboBox();
-    public ComboBox cbRoomActiveOpt = new ComboBox();
     public Label lblBed = new Label("Bed");
     public Label lblBooked = new Label("Booked");
     public Label lblAvailable = new Label("Available");
@@ -110,8 +105,6 @@ public class ApplicationUI extends Application {
     public GridPane handleGuestPane = new GridPane();
     
     //Combobox
-    String visitor[] = {"Guest", "Employee"};
-    ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(visitor)); 
     public String visitor[] = {"Guest", "Employee"};
     public ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(visitor)); 
     public String bedOptions[] = {"1 Queen Bed", "2 Queen Beds", "1 King Bed"};
