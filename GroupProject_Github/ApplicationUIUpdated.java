@@ -112,6 +112,18 @@ public class ApplicationUI extends Application {
     //Combobox
     String visitor[] = {"Guest", "Employee"};
     ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(visitor)); 
+    public String visitor[] = {"Guest", "Employee"};
+    public ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(visitor)); 
+    public String bedOptions[] = {"1 Queen Bed", "2 Queen Beds", "1 King Bed"};
+    public ComboBox cbRoomBedOpt = new ComboBox(FXCollections.observableArrayList(bedOptions));
+    public String kitchenOptions[] = {"Microwave", "Fridge + Microwave"};
+    public ComboBox cbRoomKitchOpt = new ComboBox(FXCollections.observableArrayList(kitchenOptions));
+    public String coffeeOpt[] = {"1-Cup Std. Coffee Machine", "Keuring Hot K200 Machine"};
+    public ComboBox cbRoomCoffeeOpt = new ComboBox(FXCollections.observableArrayList(coffeeOpt));
+    public String accessOptions[] = {"Standard Room", "Enhanced Accessiblity Room"};
+    public ComboBox cbRoomAccessOpt = new ComboBox(FXCollections.observableArrayList(accessOptions));
+    public String roomStatus[] = {"Active", "Deactive"};
+    public ComboBox cbRoomActiveOpt = new ComboBox(FXCollections.observableArrayList(roomStatus));
     
     //Tabs
     public TabPane roomBookingTab = new TabPane();
