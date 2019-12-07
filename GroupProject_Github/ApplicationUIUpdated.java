@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GroupProject;
+package GroupProject_Github;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,7 +24,7 @@ import javafx.scene.shape.*;
  *
  * @author AJnike
  */
-public class ApplicationUI extends Application {
+public class ApplicationUIUpdated extends Application {
     private Stage stage;
     Employee admin = new Employee("admin", "pass", "Hotel Administrator");
     
@@ -104,7 +107,7 @@ public class ApplicationUI extends Application {
     public GridPane roomABookingPane = new GridPane();
     public GridPane handleGuestPane = new GridPane();
     
-    //Combobox
+    //Combobox 
     public String visitor[] = {"Guest", "Employee"};
     public ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(visitor)); 
     public String bedOptions[] = {"1 Queen Bed", "2 Queen Beds", "1 King Bed"};
@@ -217,7 +220,16 @@ public class ApplicationUI extends Application {
         empRoomPane.add(btnSaveChanges,1,8);
         empRoomPane.add(lblAvailable,3,0);
         empRoomPane.add(lblERlistlabel,4,0);
-        empRoomPane.add(lvERList,4,1,1, 8); 
+        empRoomPane.add(lvERList,4,1,1, 8);
+        List<String> beds = Arrays.asList(bedOptions);
+        List<String> kitchen = Arrays.asList(kitchenOptions);
+        List<String> coffee = Arrays.asList(coffeeOpt);
+        List<String> access = Arrays.asList(accessOptions);
+        btnCreateRoom.setOnAction(e -> new Room(beds.indexOf(cbRoomBedOpt.getValue()) + 1,
+                kitchen.indexOf(cbRoomKitchOpt.getValue()) + 1,
+                coffee.indexOf(cbRoomCoffeeOpt.getValue()) + 1,
+                access.indexOf(cbRoomAccessOpt.getValue()) + 1,
+                Integer.parseInt(tfERRoomNo.getText())));
         
  // Employee Booking Pane
         empBookingPane.add(lblGuestUsrName, 0, 0);
