@@ -30,6 +30,10 @@ public class Employee
         employees.add(this);
     }
     
+    public int getEmployeeID() {
+        return this.employeeID;
+    }
+    
     public String getEmployeeName()
     {
         return this.employeeName;
