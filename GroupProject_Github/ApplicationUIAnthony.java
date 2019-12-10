@@ -5,7 +5,6 @@
  */
 package GroupProject_Github;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.application.Application;
@@ -27,6 +26,7 @@ import javafx.scene.shape.*;
 public class ApplicationUIAnthony extends Application {
     private Stage stage;
     Employee admin = new Employee("admin", "pass", "Hotel Administrator");
+    Guest testguest = new Guest("guest","pass", "Hotel Guest");
     
     TextField txtLogUsername = new TextField();
     TextField txtLogPassword = new TextField();
@@ -44,9 +44,8 @@ public class ApplicationUIAnthony extends Application {
     TextField txtEmpName = new TextField();
     Button btnCreateEmp = new Button("Create Employee");
     
-    Button btnCreateGuest = new Button("Guest Creator");
-    Button btnCreateRooms = new Button("Create Room");
-    Button btnEditGuest = new Button("Edit Guest");
+    Button btnCreateGuest = new Button("Manage Guests");
+    Button btnCreateRooms = new Button("Manage Rooms");
     Button btnLogout = new Button("Logout");
     
     Label lblGuestUser = new Label("Guest Username");
@@ -62,6 +61,20 @@ public class ApplicationUIAnthony extends Application {
     Button btnNewGuest = new Button("Create");
     Label lblGuestExist = new Label();
     
+    Label lbloldGuestName = new Label("Enter Old Name: ");
+    Label lblEditGuestName = new Label("Enter New Guest Name: ");
+    TextField txtEditGuestName = new TextField();
+    TextField txtOldGuestName = new TextField();
+    Button btnEditGuestName = new Button("Change Name");
+    Label lblNameChangeSuccessful = new Label("Name Change Successful");
+    
+    Label lbloldGuestPass = new Label("Enter Old Guest Pass: ");
+    Label lblEditGuestPass = new Label("Enter New Guest Pass: ");
+    TextField txtEditGuestPass = new TextField();
+    TextField txtOldGuestPass = new TextField();
+    Button btnEditGuestPass = new Button("Change Password");
+    Label lblPassChangeSuccessful = new Label("Password Change Successful");
+    
     Label lblWelcomeGuest = new Label("Welcome");
     
 // ROOM Tab
@@ -69,6 +82,18 @@ public class ApplicationUIAnthony extends Application {
     public Button btnSaveChanges = new Button("Save Changes");
     public TextField tfERRoomNo = new TextField();
     public TextField tfERRoomCost = new TextField();
+    
+    public Label lblFreeRoom = new Label("Free Rooms: ");
+    public ListView bookingList = new ListView();
+    public Label lblYear = new Label("Check in Year: ");
+    public Label lblInDay = new Label("Check in Day: ");
+    public Label lblOutDay = new Label("Check Out Day: ");
+    public TextField txtYear = new TextField();
+    public TextField txtInDay = new TextField();
+    public TextField txtOutDay = new TextField();
+    public Button btnBookRoom = new Button("Book Room ^");
+    
+    
     public Label lblBed = new Label("Bed");
     public Label lblBooked = new Label("Booked");
     public Label lblAvailable = new Label("Available");
@@ -78,7 +103,7 @@ public class ApplicationUIAnthony extends Application {
     public Label lblPrice = new Label("Price");
     public Label lblStatus = new Label("Status");
     public Label lblERlistlabel = new Label("Select Room to View or Edit");
-    public ListView<Room> lvERList;
+    public ListView lvERList = new ListView();
 // BOOKING tab
     public Button btnNewBooking = new Button("New Booking");
     public Button btnDeleteBooking = new Button("Cancel Booking");
@@ -101,13 +126,17 @@ public class ApplicationUIAnthony extends Application {
     public GridPane newEmployeePane = new GridPane();
     public GridPane empPane = new GridPane();
     public GridPane createGuestPane = new GridPane();
-    public GridPane guestPane = new GridPane();
     public GridPane empRoomPane = new GridPane();
     public GridPane empBookingPane = new GridPane();
     public GridPane roomABookingPane = new GridPane();
     public GridPane handleGuestPane = new GridPane();
+    public GridPane editGuestNamePane = new GridPane();
+    public GridPane editGuestPassPane = new GridPane();
+    public GridPane guestWelcomePane = new GridPane();
+    public GridPane guestBookingViewPane = new GridPane();
+    public GridPane guestPasswordPane = new GridPane();
     
-    //Combobox 
+    //Combobox
     public String visitor[] = {"Guest", "Employee"};
     public ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(visitor)); 
     public String bedOptions[] = {"1 Queen Bed", "2 Queen Beds", "1 King Bed"};
@@ -122,13 +151,20 @@ public class ApplicationUIAnthony extends Application {
     public ComboBox cbRoomActiveOpt = new ComboBox(FXCollections.observableArrayList(roomStatus));
     
     //Tabs
-    public TabPane roomBookingTab = new TabPane();
+    public TabPane roomBookingTabPane = new TabPane();
     public Tab tabEmpBooking = new Tab("Bookings");
     public Tab tabEmpRoom = new Tab("Rooms");
+    public Tab rbHandleLogoutTab = new Tab ("Logout");
     
-    public TabPane guestHandleTab = new TabPane();
-    public Tab createNewGuest = new Tab("Create");
-    public Tab editGuest = new Tab ("Edit");
+    public TabPane guestHandleTabPane = new TabPane();
+    public Tab createNewGuestTab = new Tab("Create");
+    public Tab editGuestTab = new Tab ("Edit Name");
+    public Tab editPassTab = new Tab ("EditName");
+    public Tab gHandleLogoutTab = new Tab ("Logout");
+    
+    public TabPane guestWelcomeTabPane = new TabPane();
+    public Tab guestBookingViewTab = new Tab("Booking");
+    public Tab changePasswordTab = new Tab("Edit Password");
     
     
 //Scenes
@@ -136,9 +172,10 @@ public class ApplicationUIAnthony extends Application {
     public Scene newEmpScene = new Scene(newEmployeePane, 500, 400);
     public Scene empWelcomeScene = new Scene(empPane, 500, 400);
     public Scene newGuestScene = new Scene(createGuestPane, 500, 400);
-    public Scene guestWelcomeScene = new Scene(guestPane, 500,400);
+    public Scene guestWelcomeScene = new Scene(guestWelcomePane, 500,400);
     public Scene roombookingScene = new Scene(roomABookingPane, 500, 400);
     public Scene handleGuestScene = new Scene(handleGuestPane, 500, 400);
+    
     
     
     
@@ -169,42 +206,96 @@ public class ApplicationUIAnthony extends Application {
 //Employee Welcome Pane  
         empPane.setAlignment(Pos.CENTER);
         empPane.add(btnCreateGuest, 0, 1);
-        empPane.add(btnEditGuest, 0, 2);
         empPane.add(btnCreateRooms, 0, 3);
         empPane.add(btnLogout, 0, 4);
         
-        roomABookingPane.add(roomBookingTab,0,0);
+        roomABookingPane.add(roomBookingTabPane,0,0);
         tabEmpRoom.setContent(empRoomPane);
         tabEmpBooking.setContent(empBookingPane);
-        roomBookingTab.getTabs().add(tabEmpRoom);
-        roomBookingTab.getTabs().add(tabEmpBooking);
+        roomBookingTabPane.getTabs().add(tabEmpRoom);
+        roomBookingTabPane.getTabs().add(tabEmpBooking);
+        roomBookingTabPane.getTabs().add(rbHandleLogoutTab);
         
-        handleGuestPane.add(guestHandleTab, 0, 0);
+        handleGuestPane.add(guestHandleTabPane, 0, 0);
+        createNewGuestTab.setContent(createGuestPane);
+        editGuestTab.setContent(editGuestNamePane);
+        editPassTab.setContent(editGuestPassPane);
+        guestHandleTabPane.getTabs().add(createNewGuestTab);
+        guestHandleTabPane.getTabs().add(editGuestTab);
+        guestHandleTabPane.getTabs().add(editPassTab);
+        guestHandleTabPane.getTabs().add(gHandleLogoutTab);
         
-       
+        guestWelcomePane.add(guestWelcomeTabPane, 0, 0);
+        guestBookingViewTab.setContent(guestBookingViewPane);
+        changePasswordTab.setContent(guestPasswordPane);
+        guestWelcomeTabPane.getTabs().add(guestBookingViewTab);
+        guestWelcomeTabPane.getTabs().add(changePasswordTab);
+        
+        
+        
+        
+        guestBookingViewPane.setAlignment(Pos.CENTER);
+        guestBookingViewPane.add(lblFreeRoom, 0,1);
+        //guestBookingViewPane.add(bookingList, 1,1);
+        guestBookingViewPane.add(lblYear, 0,2);
+        guestBookingViewPane.add(txtYear, 1,2);
+        guestBookingViewPane.add(lblInDay, 0,3);
+        guestBookingViewPane.add(txtInDay, 1,3);
+        guestBookingViewPane.add(lblOutDay, 0,4);
+        guestBookingViewPane.add(txtOutDay, 1,4);
+        guestBookingViewPane.add(btnBookRoom, 1,5);
+        
+          
 //Guest Creation
         createGuestPane.setAlignment(Pos.CENTER);
-        createGuestPane.add(lblGuestUser, 0,0);
-        createGuestPane.add(lblGuestPass, 0, 1);
-        createGuestPane.add(lblGuestName, 0, 2);
-        createGuestPane.add(lblValueID, 0, 3);
-        createGuestPane.add(txtGuestUser, 1, 0);
-        createGuestPane.add(txtGuestPass, 1, 1);
-        createGuestPane.add(txtGuestName, 1, 2);
-        createGuestPane.add(txtValueID, 1, 3);
-        createGuestPane.add(r1, 3, 0);
-        createGuestPane.add(r2, 3, 1);
-        createGuestPane.add(btnNewGuest,0,4);
-        createGuestPane.add(lblGuestExist, 3, 3);
+        createGuestPane.add(lblGuestUser, 0,1);
+        createGuestPane.add(lblGuestPass, 0, 2);
+        createGuestPane.add(lblGuestName, 0, 3);
+        createGuestPane.add(lblValueID, 0, 4);
+        createGuestPane.add(txtGuestUser, 1, 1);
+        createGuestPane.add(txtGuestPass, 1, 2);
+        createGuestPane.add(txtGuestName, 1, 3);
+        createGuestPane.add(txtValueID, 1, 4);
+        createGuestPane.add(r1, 3, 1);
+        createGuestPane.add(r2, 3, 2);
+        createGuestPane.add(btnNewGuest,0,5);
+        createGuestPane.add(lblGuestExist, 3, 4);
         lblValueID.setVisible(false);
         txtValueID.setVisible(false);
         
+        editGuestNamePane.setAlignment(Pos.CENTER);
+        editGuestNamePane.add(lbloldGuestName, 0, 1);
+        editGuestNamePane.add(lblEditGuestName, 0, 2);
+        editGuestNamePane.add(txtOldGuestName, 1, 1);
+        editGuestNamePane.add(txtEditGuestName, 1, 2);
+        editGuestNamePane.add(btnEditGuestName, 0, 3);
+        editGuestNamePane.add(lblNameChangeSuccessful, 1, 3);
+        lblNameChangeSuccessful.setVisible(false);
+        
+        
+        editGuestPassPane.setAlignment(Pos.CENTER);
+        editGuestPassPane.add(lbloldGuestPass, 0, 1);
+        editGuestPassPane.add(lblEditGuestPass, 0, 2);
+        editGuestPassPane.add(txtOldGuestPass, 1, 1);
+        editGuestPassPane.add(txtEditGuestPass, 1, 2);
+        editGuestPassPane.add(btnEditGuestPass, 0, 3);
+        editGuestPassPane.add(lblPassChangeSuccessful, 1, 3);
+        lblPassChangeSuccessful.setVisible(false);
+        
+        
+        
+        
+        
+        
  //Guest Welcome Pane
-        guestPane.add(lblWelcomeGuest, 0, 0);
+       
 
  // Employee Room Pane
         ObservableList<Room> roomList = FXCollections.observableArrayList();
+        ObservableList<RoomDisplay> displayList = FXCollections.observableArrayList();
         lvERList = new ListView(roomList);
+        bookingList = new ListView(displayList);
+                guestBookingViewPane.add(bookingList, 1,1); //moved this down here so it shows the data.
         empRoomPane.add(tfERRoomNo,1,0);
         empRoomPane.add(lblBed,0,2);
         empRoomPane.add(cbRoomBedOpt,1,2);
@@ -216,22 +307,26 @@ public class ApplicationUIAnthony extends Application {
         empRoomPane.add(cbRoomAccessOpt,1,5);
         empRoomPane.add(lblPrice,0,6);
         empRoomPane.add(tfERRoomCost,1,6);
-        //empRoomPane.add(lblStatus,0,7);
-        //empRoomPane.add(cbRoomActiveOpt,1,7);
+        empRoomPane.add(lblStatus,0,7);
+        empRoomPane.add(cbRoomActiveOpt,1,7);
         empRoomPane.add(btnCreateRoom,0,8);
         empRoomPane.add(btnSaveChanges,1,8);
         empRoomPane.add(lblAvailable,3,0);
         empRoomPane.add(lblERlistlabel,4,0);
-        empRoomPane.add(lvERList,4,1,1, 8);
+        empRoomPane.add(lvERList,4,1,1, 8); 
         List<String> beds = Arrays.asList(bedOptions);
         List<String> kitchen = Arrays.asList(kitchenOptions);
         List<String> coffee = Arrays.asList(coffeeOpt);
         List<String> access = Arrays.asList(accessOptions);
-        btnCreateRoom.setOnAction(e -> roomList.add(new Room(beds.indexOf(cbRoomBedOpt.getValue()) + 1,
+        btnCreateRoom.setOnAction(e -> {
+                Room room = new Room(beds.indexOf(cbRoomBedOpt.getValue()) + 1,
                 kitchen.indexOf(cbRoomKitchOpt.getValue()) + 1,
                 coffee.indexOf(cbRoomCoffeeOpt.getValue()) + 1,
                 access.indexOf(cbRoomAccessOpt.getValue()) + 1,
-                Integer.parseInt(tfERRoomNo.getText()))));
+                Integer.parseInt(tfERRoomNo.getText()));
+                roomList.add(room);
+                displayList.add(new RoomDisplay(room));
+        });
         
  // Employee Booking Pane
         empBookingPane.add(lblGuestUsrName, 0, 0);
@@ -270,7 +365,10 @@ public class ApplicationUIAnthony extends Application {
         btnLogin.setOnAction(e -> {
             loginHandler();
         });
-        
+        gHandleLogoutTab.setOnSelectionChanged(e -> 
+                primaryStage.setScene(empWelcomeScene));
+        rbHandleLogoutTab.setOnSelectionChanged(e -> 
+                primaryStage.setScene(empWelcomeScene));
  //Sets Pane to Create a new Guest       
         btnCreateRooms.setOnAction(e -> {
             primaryStage.setScene(roombookingScene);
@@ -278,7 +376,7 @@ public class ApplicationUIAnthony extends Application {
         });
         
         btnCreateGuest.setOnAction(e -> {
-            primaryStage.setScene(newGuestScene);
+            primaryStage.setScene(handleGuestScene);
             
         });
         r1.setOnAction(e -> {
