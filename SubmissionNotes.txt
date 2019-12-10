@@ -10,6 +10,7 @@ Java: javauser / javapass
 
 Work In Progress:
 > UI is complete but we are still working on adding functionality specifically with regards to actions and listviews.
+> Input validation and error checking is also still a work in progress. 
 > We are still working on building and testing the database funtionality 
 > The RoomService class integration with the Booking class is still being worked out
 > The "show" methods and "insert" method for RoomService are still being worked on. 
