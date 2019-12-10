@@ -9,6 +9,8 @@ public class RoomService {
     
     public static int nextID = 0; 
     
+    // NEED AN ARRAY FOR STORING DATA
+    // NEED TO CONNECT TO BOOKING CLASS 
     
     public RoomService(String roomServDescription, double roomServPrice)
     {
