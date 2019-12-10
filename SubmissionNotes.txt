@@ -1,0 +1,15 @@
+CIS 331 Final Project Part II 
+Madison Hotel UI/DB 
+
+Group Members: Nick Pease, Aaron Morgan, Connor Hotaling, Stephen Pannier, Anthony Everard
+
+Project Test Account Name/Passwords
+Employee: admin / pass
+Guest: guest / pass
+Java: javauser / javapass
+
+Work In Progress:
+> UI is complete but we are still working on adding functionality specifically with regards to actions and listviews.
+> We are still working on building and testing the database funtionality 
+> The RoomService class integration with the Booking class is still being worked out
+> The "show" methods and "insert" method for RoomService are still being worked on. 
