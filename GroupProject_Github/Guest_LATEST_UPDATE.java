@@ -37,6 +37,10 @@ public class Guest {
         }
     }
     
+    public int getGuestID() {
+        return this.guestID;
+    }
+    
     public String getGuestName() {
         return this.guestName;
     }
