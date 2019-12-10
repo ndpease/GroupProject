@@ -23,6 +23,8 @@ public class Booking {
     public static int nextID;
     public static ArrayList<Booking> bookings = new ArrayList<Booking>();
     
+    // NEED TO INSERT THE ROOM_SERVICE INTO INTO A GUEST'S BOOKING
+    
     public Booking(Guest bookingGuest, Room bookedRoom, int year, int checkIn, int checkOut) {
         this.bookedRoom = bookedRoom;
         this.bookingGuest = bookingGuest;
